@@ -4,7 +4,7 @@ const moviesController = require("../controllers/movies");
 
 // GET
 router.get("/", moviesController.getAll);
-router.get("/by", moviesController.getSingleQueries);
+router.get("/search", moviesController.getSingleQueries);
 router.get("/id/:id", moviesController.getSingle);
 
 // POST
