@@ -1,18 +1,27 @@
 const router = require('express').Router();
 const actorsController = require('../controllers/actors');
 
+const { 
+    actorsValidationRules,
+    actorsQueryNameValidateRules,
+    actorsParamIDValidateRules
+} = require('../validators/actorsValidator');
+
+const validate = require('../validators/validate');
+
+
 // GET
 router.get("/", actorsController.getAll);
-router.get("/search", actorsController.getSingleQueries);
-router.get("/id/:id", actorsController.getSingle);
+router.get("/search", actorsQueryNameValidateRules(), validate, actorsController.getSingleQueries);
+router.get("/id/:id", actorsParamIDValidateRules(), validate, actorsController.getSingle);
 
 // POST
-router.post("/", actorsController.addActors);
+router.post("/", actorsValidationRules(), validate, actorsController.addActors);
 
 // PUT
-router.put("/:id", actorsController.updateActors);
+router.put("/:id", actorsParamIDValidateRules(), actorsValidationRules(), validate, actorsController.updateActors);
 
 // DELETE
-router.delete("/:id", actorsController.deleteActors);
+router.delete("/:id", actorsParamIDValidateRules(), validate, actorsController.deleteActors);
 
 module.exports = router;
