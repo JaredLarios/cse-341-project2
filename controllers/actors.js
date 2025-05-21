@@ -96,7 +96,6 @@ const deleteActors = async (req, res, next) => {
         const actorId = new ObjectId(req.params.id);
 
         const validID = await validateExistingID(actorId);
-
         if(!validID) throw createError(404, "Actors ID does not exist");
         
         const response = await mongodb.getDatabase().db().collection("actors").deleteOne({_id: actorId});
