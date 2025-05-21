@@ -14,7 +14,11 @@ const getSingle = async (req, res) => {
     //#swagger.tags=['Movies']
     const movieId = new ObjectId(req.params.id);
     const response = await mongodb.getDatabase().db().collection("movies").findOne({_id: movieId});
-    res.status(200).json(response);
+    if (response) {
+        res.status(200).json(response);
+    } else {
+        res.status(404).json({ message: "Movie not found." });
+    }
 }
 
 const getSingleQueries = async (req, res) => {

@@ -1,19 +1,25 @@
 const router = require('express').Router();
+const moviesController = require('../controllers/movies');
+const { 
+    movieValidationRules,
+    movieQueryNameValidateRules,
+    movieParamIDValidateRules 
+} = require('../validators/movieValidator');
+const validate = require('../validators/validate');
 
-const moviesController = require("../controllers/movies");
 
 // GET
 router.get("/", moviesController.getAll);
-router.get("/search", moviesController.getSingleQueries);
-router.get("/id/:id", moviesController.getSingle);
+router.get("/search", movieQueryNameValidateRules(), validate, moviesController.getSingleQueries);
+router.get("/id/:id", movieParamIDValidateRules(), validate, moviesController.getSingle);
 
 // POST
-router.post("/", moviesController.addMovie);
+router.post("/", movieValidationRules(), validate, moviesController.addMovie);
 
 // PUT
-router.put("/:id", moviesController.updateMovie);
+router.put("/:id", movieValidationRules(), movieParamIDValidateRules(), validate, moviesController.updateMovie);
 
 // Delete
-router.delete("/:id", moviesController.deleteMovie);
+router.delete("/:id", movieParamIDValidateRules(), validate, moviesController.deleteMovie);
 
 module.exports = router;
