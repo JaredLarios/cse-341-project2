@@ -1,11 +1,12 @@
 const swaggerAutogen = require('swagger-autogen');
+const dotenv = require('dotenv');
 
 const doc = {
     info: {
         title: "Movies API",
         description: "Movies database for cse project 2",
     },
-    host: "cse-341-project2-nacd.onrender.com",
+    host: process.env.URI,
     schemes: ["http", "https"],
 };
 
