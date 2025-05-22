@@ -5,9 +5,9 @@ const {
     actorsValidationRules,
     actorsQueryNameValidateRules,
     actorsParamIDValidateRules
-} = require('../validators/actorsValidator');
+} = require('../helpers/actorsValidator');
 
-const validate = require('../validators/validate');
+const validate = require('../helpers/validate');
 
 
 // GET

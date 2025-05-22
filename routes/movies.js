@@ -4,8 +4,8 @@ const {
     movieValidationRules,
     movieQueryNameValidateRules,
     movieParamIDValidateRules 
-} = require('../validators/movieValidator');
-const validate = require('../validators/validate');
+} = require('../helpers/movieValidator');
+const validate = require('../helpers/validate');
 
 
 // GET
