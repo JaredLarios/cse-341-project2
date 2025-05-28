@@ -9,6 +9,8 @@ const {
 
 const validate = require('../helpers/validate');
 
+const { isAuthenticated } = require('../middleware/authenticate');
+
 
 // GET
 router.get("/", actorsController.getAll);
@@ -16,12 +18,12 @@ router.get("/search", actorsQueryNameValidateRules(), validate, actorsController
 router.get("/id/:id", actorsParamIDValidateRules(), validate, actorsController.getSingle);
 
 // POST
-router.post("/", actorsValidationRules(), validate, actorsController.addActors);
+router.post("/", isAuthenticated, actorsValidationRules(), validate, actorsController.addActors);
 
 // PUT
-router.put("/:id", actorsParamIDValidateRules(), actorsValidationRules(), validate, actorsController.updateActors);
+router.put("/:id", isAuthenticated, actorsParamIDValidateRules(), actorsValidationRules(), validate, actorsController.updateActors);
 
 // DELETE
-router.delete("/:id", actorsParamIDValidateRules(), validate, actorsController.deleteActors);
+router.delete("/:id", isAuthenticated, actorsParamIDValidateRules(), validate, actorsController.deleteActors);
 
 module.exports = router;

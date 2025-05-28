@@ -7,6 +7,8 @@ const {
 } = require('../helpers/movieValidator');
 const validate = require('../helpers/validate');
 
+const { isAuthenticated } = require('../middleware/authenticate');
+
 
 // GET
 router.get("/", moviesController.getAll);
@@ -14,12 +16,12 @@ router.get("/search", movieQueryNameValidateRules(), validate, moviesController.
 router.get("/id/:id", movieParamIDValidateRules(), validate, moviesController.getSingle);
 
 // POST
-router.post("/", movieValidationRules(), validate, moviesController.addMovie);
+router.post("/", isAuthenticated, movieValidationRules(), validate, moviesController.addMovie);
 
 // PUT
-router.put("/:id", movieValidationRules(), movieParamIDValidateRules(), validate, moviesController.updateMovie);
+router.put("/:id", isAuthenticated, movieValidationRules(), movieParamIDValidateRules(), validate, moviesController.updateMovie);
 
 // Delete
-router.delete("/:id", movieParamIDValidateRules(), validate, moviesController.deleteMovie);
+router.delete("/:id", isAuthenticated, movieParamIDValidateRules(), validate, moviesController.deleteMovie);
 
 module.exports = router;
